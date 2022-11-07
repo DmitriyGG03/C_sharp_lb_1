@@ -50,18 +50,19 @@ void Menu()
                     string? input = null;
                     double amount = 0.0;
                     BankAccount? bankAccount = null;
-                    code = GetAccountNumber(ref bankAccount, MainObject);
+                    code = GetAccountNumber(ref bankAccount, MainObject); //Знаходимо акаунт та записуємо його в змінну
                     if (code == 1) break;
                     else if (code == 2) continue;
 
                     while (true)
                     {
                         Console.WriteLine("Яку суму ви хочете занести на рахунок?");
-                        code = CheckNumber(ref input, ref amount);
+                        code = CheckNumber(ref input, ref amount); // Проводимо перевірки числа
                         if (code == 1) break;
                         else if (code == 2) continue;
 
                         bankAccount.Amount += amount;
+                        //Очищаємо екран та виводимо рядок
                         Ending($"{amount} грн були успішно начислені на рахунок з номером: {ConvertNumber(bankAccount.AccountNumber)};\nЗалишок на рахунку: {bankAccount.Amount} грн.");
 
                         break;
@@ -77,11 +78,11 @@ void Menu()
                     string? input = null;
                     double amount = 0.0;
                     BankAccount? bankAccount = null;
-                    code = GetAccountNumber(ref bankAccount, MainObject);
+                    code = GetAccountNumber(ref bankAccount, MainObject); //Знаходимо акаунт та записуємо його в змінну
                     if (code == 1) break;
                     else if (code == 2) continue;
 
-                    if (bankAccount.Amount == 0)
+                    if (bankAccount.Amount == 0) //Перевіряємо чи є кошти на рахунку
                     {
                         Ending("На рахунку немає коштів!");
                         continue;
@@ -90,16 +91,16 @@ void Menu()
                     while (true)
                     {
                         Console.WriteLine("Яку суму ви хочете зняти з рахунку?");
-                        code = CheckNumber(ref input, ref amount);
+                        code = CheckNumber(ref input, ref amount); // Проводимо перевірки введеного числа
                         if (code == 1) break;
                         else if (code == 2) continue;
 
-                        if (amount > bankAccount.Amount)
+                        if (amount > bankAccount.Amount) // Виводимо помилку, якщо коштів недостатньо
                         {
                             Ending("На рахунку недостатньо коштів!!!");
                             continue;
                         }
-                        bankAccount.Amount -= amount;
+                        bankAccount.Amount -= amount; // Знімаємо кошти з рахунку, очищаємо екран та виводимо повідомлення
                         Ending($"{amount} грн були успішно зняті з рахунку з номером: {ConvertNumber(bankAccount.AccountNumber)};\nЗалишок на рахунку: {bankAccount.Amount} грн.");
                         break;
                     }
@@ -111,17 +112,17 @@ void Menu()
                     int rate, code, temp;
                     double val = 0.0;
                     string? input = null;
-                    BankAccount? bankAccount = null; //Аккаунт, в якому буде відкрито депозит
+                    BankAccount? bankAccount = null; 
                     Console.Clear();
                     while (true)
                     {
                         Console.WriteLine("Для відкриття депозиту за номером рахунку введіть такі дані (для віміни напишіть \"back\"):");
                         //Номер рахунку
-                        code = GetAccountNumber(ref bankAccount, MainObject);
+                        code = GetAccountNumber(ref bankAccount, MainObject); //Знаходимо акаунт та записуємо його в змінну
                         if (code == 1) break;
                         else if (code == 2) continue;
 
-                        if (bankAccount.Amount < 100)
+                        if (bankAccount.Amount < 100) // Перевіряємо чи є на рахунку мінімальна сума депозиту
                         {
                             Ending("На рахунку недостатньо коштів, мінімально 100!");
                             continue;
@@ -131,27 +132,27 @@ void Menu()
                         {
                             //Кількість коштів, що вноситься на депозит
                             Console.WriteLine("Кількість грошей (мін 100):");
-                            code = CheckNumber(ref input, ref val);
+                            code = CheckNumber(ref input, ref val); // Проводимо перевірки введеного числа
                             if (code == 1) break;
                             else if (code == 2) continue;
 
-                            if (val < 100 || val > bankAccount.Amount)
+                            if (val < 100 || val > bankAccount.Amount) //Перевіряємо чи є вказана сума на рахунку
                             {
                                 Ending("Введена сума є некоректною!");
                                 continue;
                             }
-                            //Відсоткова станка депозиту
+                            //Відсоткова ставка депозиту
                             Console.WriteLine("Відсоткова ставка(6, 8, 10, 14):");
                             rate = Convert.ToInt32(Console.ReadLine());
-                            if (rate != 6 && rate != 8 && rate != 10 && rate != 14)
+                            if (rate != 6 && rate != 8 && rate != 10 && rate != 14) // Перевіряємо правильність введення відсоткової ставки
                             {
                                 Ending("Введена відсоткова ставка є некоректною!");
                                 continue;
                             }
 
                             bankAccount.Amount -= val;
-                            temp = bankAccount.GetDepositID(MainObject);
-                            bankAccount.CreateDeposit(temp, val, rate);
+                            temp = bankAccount.GetDepositID(MainObject); // Генеруємо ID для нового депозиту
+                            bankAccount.CreateDeposit(temp, val, rate); // Додаємо об'єкт Deposits до масиву депозитів даного акаунта
                             Ending($"{val} грн були успішно покладені на новостворений депозит № {temp} на рахунку з номером: {ConvertNumber(bankAccount.AccountNumber)};\nЗалишок на рахунку: {bankAccount.Amount} грн.");
                             break;
                         }
@@ -166,18 +167,18 @@ void Menu()
                     int id = 0;
                     double val = 0.0;
                     string? input = null;
-                    BankAccount? bankAccount = null; //Аккаунт, в якому буде відкрито депозит
+                    BankAccount? bankAccount = null; //Аккаунт, в якому буде шукаємий депозит
                     Deposits? deposits = null; //Шукаємий депозит
                     Console.Clear();
                     while (true)
                     {
-                        Console.WriteLine("Для відкриття депозиту за номером рахунку введіть такі дані (для віміни напишіть \"back\"):");
+                        Console.WriteLine("Для закриття депозиту за номером рахунку введіть такі дані (для віміни напишіть \"back\"):");
                         //Номер рахунку
-                        code = GetAccountNumber(ref bankAccount, MainObject);
+                        code = GetAccountNumber(ref bankAccount, MainObject); //Знаходимо акаунт та записуємо його в змінну
                         if (code == 1) break;
                         else if (code == 2) continue;
 
-                        if (bankAccount.Deposits is null)
+                        if (bankAccount.Deposits is null) //Перевіряємо чи є на цьому рахунку депозити
                         {
                             Ending("На рахунку немає відкритих депозитів!");
                             continue;
@@ -188,15 +189,15 @@ void Menu()
                             //Номер депозиту, що необхідно закрити
                             Console.WriteLine("Номер депозиту, що необхідно закрити:");
 
-                            code = CheckNumber(ref input, ref val); //Отримуємо перевірену цифру номера
+                            code = CheckNumber(ref input, ref val); // Проводимо перевірки введеного числа
                             if (code == 1) break;
                             else if (code == 2) continue;
 
                             id = Convert.ToInt32(val);
-                            deposits = bankAccount.FindDeposits(id); // Знаходимо депозит, що нам необхідно закрити
+                            deposits = bankAccount.FindDeposits(id); // Знаходимо депозит, що нам необхідно закрити та записуємо в змінну
                             val = deposits.DepAmount;
 
-                            bankAccount.DeleteDeposit(MainObject, deposits);
+                            bankAccount.DeleteDeposit(MainObject, deposits); // Видаляємо депозит зі списку
 
                             Ending($"Депозит з номером {id} був успішно видалений, а сума {val} грн була успішно покладена на основний рахунок № {ConvertNumber(bankAccount.AccountNumber)};\nЗалишок на рахунку: {bankAccount.Amount} грн.");
                             break;
@@ -215,16 +216,16 @@ void Menu()
                     {
                         Console.WriteLine("Для визначення загальної кількості грошей на депозитах рахунку введіть такі дані (для віміни напишіть \"back\"):");
                         //Номер рахунку
-                        code = GetAccountNumber(ref bankAccount, MainObject);
+                        code = GetAccountNumber(ref bankAccount, MainObject); //Знаходимо акаунт та записуємо його в змінну
                         if (code == 1) break;
                         else if (code == 2) continue;
 
-                        if (bankAccount.Deposits.Count == 0)
+                        if (bankAccount.Deposits.Count == 0) // Перевіряємо чи є депозити на вказаному
                         {
                             Ending("На рахунку немає відкритих депозитів!");
                             continue;
                         }
-
+                        // Виводимо інформацію
                         Ending($"На рахунку номер {ConvertNumber(bankAccount.AccountNumber)} відкрито {bankAccount.Deposits.Count} депозити\\ів із загальною кількістю грошей на них: {bankAccount.AmountOnDeposits()} грн.");
                         break;
                     }
@@ -238,7 +239,7 @@ void Menu()
                     Console.Clear();
                     while (true)
                     {
-                        Console.WriteLine("Для визначення загальної кількості грошей на депозитах рахунку введіть такі дані (для віміни напишіть \"back\"):");
+                        Console.WriteLine("Для виведення інформації про рахунок введіть такі дані (для віміни напишіть \"back\"):");
                         //Номер рахунку
                         code = GetAccountNumber(ref bankAccount, MainObject);
                         if (code == 1) break;
