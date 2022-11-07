@@ -1,5 +1,4 @@
 ﻿using Manager;
-using System;
 using System.Text;
 
 class BankAccount
@@ -104,6 +103,4 @@ class BankAccount
         }
         return sb.ToString();
     }
-
-   
 }

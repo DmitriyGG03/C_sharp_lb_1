@@ -336,7 +336,7 @@ string ConvertNumber(in double number)
     string num = number.ToString();
     for (int i = 0; i < 8 - num.Length; i++)
     {
-        sb.Append("0");
+        sb.Append('0');
     }
     sb.Append(num);
     return sb.ToString();

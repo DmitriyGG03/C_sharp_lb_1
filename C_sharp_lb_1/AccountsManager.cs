@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Principal;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Manager;
+﻿namespace Manager;
 class AccountsManager
 {
     public List<BankAccount> Accounts { get; } = new List<BankAccount>(0); // Записуємо всі активні аккаунти користувачів
